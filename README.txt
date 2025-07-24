@@ -1,10 +1,8 @@
 
-Meme Eater - The First Living Meme Coin
+Meme Eater - V2 Evolution Build
 
-This version contains:
-- A static site with evolving AI-like behavior
-- Simple JS simulation of AI speech
-- Design representing digital awareness
-- Placeholder for future on-chain integration
-
-Deployed with love by ChatGPT and Arushi 🧠🐺
+This version includes:
+- Emotion-aware AI responses
+- Dynamic styling (color changes by emotion)
+- Behaviorally reactive text engine
+- Beginning of generational evolution system
