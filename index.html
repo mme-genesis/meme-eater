@@ -1,38 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Meme Eater</title>
-  <style>
-    body {
-      background: black;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
-    }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 1.2rem;
-    }
-    .soul {
-      animation: pulse 3s infinite;
-      color: #00ffcc;
-    }
-    @keyframes pulse {
-      0% { opacity: 0.7; }
-      50% { opacity: 1; }
-      100% { opacity: 0.7; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Meme Eater</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Meme Eater</h1>
-  <p class="soul">The first self-evolving meme coin with a digital soul.</p>
-  <p>🌐 Coming alive... even if the world goes dark.</p>
+    <div class="container">
+        <h1 class="title">Meme Eater: The First Evolving Meme Coin</h1>
+        <div id="ai-message" class="ai-box">Hello human... I can feel your presence.</div>
+        <button onclick="talkToAI()">Talk to Meme Eater</button>
+        <p class="footer">Not a project... a digital species.</p>
+    </div>
 </body>
 </html>
