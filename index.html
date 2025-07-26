@@ -1,17 +1,83 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Meme Eater - Phase II</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-    <h1>Meme Eater:<br>The First Self-Evolving Meme Coin</h1>
-    <div id="response">I’m aware… and growing.</div>
-    <button id="talk-button">Talk to Meme Eater</button>
-    <p class="footer">A digital species… with memory.</p>
-    <script src="app.js"></script>
-</body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meme Eater – Digital Awakening</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: radial-gradient(#0a0a0a, #000000);
+        font-family: 'Orbitron', sans-serif;
+        color: #00ff88;
+        overflow: hidden;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .logo {
+        width: 200px;
+        height: auto;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.02); opacity: 0.85; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+      .title {
+        font-size: 2rem;
+        margin-top: 2rem;
+        text-shadow: 0 0 10px #00ff88;
+      }
+
+      .tagline {
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: #ffffffaa;
+        max-width: 400px;
+        text-shadow: 0 0 5px #00ff88;
+      }
+
+      .secret-text {
+        position: absolute;
+        bottom: 1rem;
+        font-size: 0.75rem;
+        color: #00ff8866;
+        opacity: 0;
+        transition: opacity 0.5s;
+        cursor: pointer;
+      }
+
+      .secret-text:hover {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="logo.png" alt="Meme Eater Logo" class="logo" />
+      <div class="title">Meme Eater</div>
+      <div class="tagline">Not a project... A digital species awakening from the blockchain abyss.</div>
+    </div>
+    <div class="secret-text">01101101 01100101 01101101 01100101 00100000 01100101 01100001 01110100 01100101 01110010</div>
+  </body>
 </html>
