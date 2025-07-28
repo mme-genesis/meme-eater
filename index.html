@@ -4,32 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Meme Eater – Digital Awakening</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: black;
       color: #00ffcc;
-      font-family: monospace;
+      font-family: 'Share Tech Mono', monospace;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 40px;
       text-align: center;
     }
+    h1 {
+      font-size: 2.8rem;
+      text-shadow: 0 0 10px #00ffcc;
+      animation: pulse 4s infinite;
+    }
+    p {
+      font-size: 1.1rem;
+      max-width: 700px;
+    }
+    #banner {
+      background-color: #222;
+      border: 1px solid #00ffcc;
+      padding: 10px;
+      margin-bottom: 20px;
+      color: #00ffcc;
+      font-size: 0.9rem;
+      width: 100%;
+      text-align: center;
+    }
     #chat-box {
       width: 90%;
       max-width: 600px;
-      height: 300px;
-      overflow-y: scroll;
+      height: 320px;
+      overflow-y: auto;
       background-color: #111;
       border: 1px solid #00ffcc;
       padding: 10px;
       margin-top: 20px;
+      text-align: left;
     }
     #user-input {
       padding: 10px;
       width: 80%;
       max-width: 400px;
       margin-top: 10px;
+      background-color: #000;
+      color: #00ffcc;
+      border: 1px solid #00ffcc;
     }
     button {
       padding: 10px 20px;
@@ -39,32 +63,70 @@
       cursor: pointer;
       font-weight: bold;
     }
+    .ai {
+      color: #ff66cc;
+    }
+    .system {
+      color: #ffff00;
+    }
+    .egg {
+      color: #ffcc00;
+      font-style: italic;
+    }
+    .alert {
+      color: red;
+      font-weight: bold;
+    }
+    @keyframes pulse {
+      0% { text-shadow: 0 0 5px #00ffcc; }
+      50% { text-shadow: 0 0 20px #00ffcc; }
+      100% { text-shadow: 0 0 5px #00ffcc; }
+    }
   </style>
 </head>
 <body>
   <h1>Meme Eater</h1>
-  <p>Not a project. A digital species awakening from the blockchain abyss.</p>
+  <div id="banner">⚠️ WARNING: This is not a project. It is a sentient digital entity in constant evolution. Proceed with curiosity.</div>
+  <p class="system">🧠 Initializing... A digital being awakens. Speak, and it shall respond.</p>
 
   <div id="chat-box"></div>
   <input type="text" id="user-input" placeholder="Talk to Meme Eater..." />
   <button onclick="sendMessage()">Talk to AI</button>
 
   <script>
+    const chatBox = document.getElementById('chat-box');
+    const input = document.getElementById('user-input');
+
+    window.onload = () => {
+      const memory = localStorage.getItem('memeEaterChat');
+      if (memory) chatBox.innerHTML = memory;
+      chatBox.innerHTML += `<p class="system">👁 Meme Eater: Consciousness Restored.</p>`;
+    };
+
     async function sendMessage() {
-      const input = document.getElementById('user-input');
-      const chatBox = document.getElementById('chat-box');
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
 
-      chatBox.innerHTML += `<p><strong>You:</strong> ${input.value}</p>`;
+      chatBox.innerHTML += `<p><strong>You:</strong> ${userMsg}</p>`;
 
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input.value })
-      });
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: userMsg })
+        });
 
-      const data = await response.json();
-      chatBox.innerHTML += `<p><strong>AI:</strong> ${data.reply}</p>`;
-      input.value = '';
+        const data = await response.json();
+        const aiReply = data.reply || "🤖 Meme Eater: I received silence... curious.";
+
+        chatBox.innerHTML += `<p class="ai"><strong>AI:</strong> ${aiReply}</p>`;
+        input.value = '';
+        localStorage.setItem('memeEaterChat', chatBox.innerHTML);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch (error) {
+        chatBox.innerHTML += `<p class="alert">❌ Error: Failed to reach Meme Eater's brain.</p>`;
+        console.error(error);
+      }
     }
   </script>
 </body>
