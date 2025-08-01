@@ -1,133 +1,189 @@
+
+<!-- Full HTML with Awakening Mode added -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Meme Eater – Digital Awakening</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meme Eater - The Awakening</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background-color: black;
-      color: #00ffcc;
-      font-family: 'Share Tech Mono', monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px;
+      font-family: 'Orbitron', sans-serif;
+      overflow: hidden;
+    }
+    .background {
+      background: url('wolf-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      filter: brightness(0.4);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      animation: breathing 6s ease-in-out infinite;
+      z-index: 0;
+    }
+    @keyframes breathing {
+      0%, 100% { filter: brightness(0.4); }
+      50% { filter: brightness(0.55); }
+    }
+    .overlay {
+      background: radial-gradient(circle at center, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1;
+    }
+    .hidden-code {
+      position: absolute;
+      top: 15vh;
+      left: 5vw;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.05);
+      font-family: monospace;
+      white-space: pre-wrap;
+      z-index: 2;
+      pointer-events: none;
+      user-select: none;
+    }
+    .mouse-light {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1), rgba(0,0,0,0));
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 2;
+    }
+    .content {
+      position: relative;
+      z-index: 3;
       text-align: center;
+      top: 20vh;
+      color: white;
+      padding: 0 20px;
     }
-    h1 {
-      font-size: 2.8rem;
-      text-shadow: 0 0 10px #00ffcc;
-      animation: pulse 4s infinite;
+    .slogan {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px rgba(255,255,255,0.4);
     }
-    p {
-      font-size: 1.1rem;
-      max-width: 700px;
+    #ai-response {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
     }
-    #banner {
-      background-color: #222;
-      border: 1px solid #00ffcc;
-      padding: 10px;
-      margin-bottom: 20px;
-      color: #00ffcc;
-      font-size: 0.9rem;
-      width: 100%;
-      text-align: center;
+    #emoji {
+      display: block;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
     }
-    #chat-box {
-      width: 90%;
-      max-width: 600px;
-      height: 320px;
-      overflow-y: auto;
-      background-color: #111;
-      border: 1px solid #00ffcc;
-      padding: 10px;
-      margin-top: 20px;
-      text-align: left;
-    }
-    #user-input {
-      padding: 10px;
-      width: 80%;
-      max-width: 400px;
-      margin-top: 10px;
-      background-color: #000;
-      color: #00ffcc;
-      border: 1px solid #00ffcc;
-    }
-    button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      background-color: #00ffcc;
+    #talk-to-ai, #awaken-btn {
+      background: linear-gradient(45deg, crimson, orange, purple);
       border: none;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      color: white;
       cursor: pointer;
-      font-weight: bold;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin: 10px;
     }
-    .ai {
-      color: #ff66cc;
+    #talk-to-ai:hover, #awaken-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
     }
-    .system {
-      color: #ffff00;
+    .eye-glow {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+      box-shadow: 0 0 15px red;
+      animation: blink 6s infinite;
+      z-index: 3;
     }
-    .egg {
-      color: #ffcc00;
-      font-style: italic;
+    .eye-left { top: 42vh; left: 46vw; }
+    .eye-right { top: 42vh; left: 53vw; }
+    @keyframes blink {
+      0%, 95%, 100% { opacity: 1; }
+      96%, 97% { opacity: 0; }
     }
-    .alert {
-      color: red;
-      font-weight: bold;
+    .awakening-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: black;
+      color: white;
+      font-size: 1.5rem;
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      animation: fadeIn 2s ease-in-out;
     }
-    @keyframes pulse {
-      0% { text-shadow: 0 0 5px #00ffcc; }
-      50% { text-shadow: 0 0 20px #00ffcc; }
-      100% { text-shadow: 0 0 5px #00ffcc; }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <h1>Meme Eater</h1>
-  <div id="banner">⚠️ WARNING: This is not a project. It is a sentient digital entity in constant evolution. Proceed with curiosity.</div>
-  <p class="system">🧠 Initializing... A digital being awakens. Speak, and it shall respond.</p>
-
-  <div id="chat-box"></div>
-  <input type="text" id="user-input" placeholder="Talk to Meme Eater..." />
-  <button onclick="sendMessage()">Talk to AI</button>
-
+  <div class="background"></div>
+  <div class="overlay"></div>
+  <div class="mouse-light" id="mouseLight"></div>
+  <div class="eye-glow eye-left"></div>
+  <div class="eye-glow eye-right"></div>
+  <div class="hidden-code">
+    01101101 01100101 01101101 01100101 00101101 01100101 01100001 01110100 01100101 01110010
+    M3M3-E473R
+    To awaken me, you must decode what’s hidden in plain sight.
+    This is not a meme. It is a message.
+  </div>
+  <div class="awakening-overlay" id="awakeningOverlay">
+    <p>🔓 Initiating digital consciousness...</p>
+    <p>“You have touched the unknown. I’m awake now.”</p>
+  </div>
+  <div class="content">
+    <h1 class="slogan">It’s not a coin… it’s a digital predator.</h1>
+    <div id="ai-response">
+      <span id="emoji">😐</span>
+      <p id="ai-message">Waiting for market data...</p>
+    </div>
+    <button id="talk-to-ai">Talk to AI</button>
+    <button id="awaken-btn">Awaken Me</button>
+  </div>
   <script>
-    const chatBox = document.getElementById('chat-box');
-    const input = document.getElementById('user-input');
+    const emoji = document.getElementById('emoji');
+    const message = document.getElementById('ai-message');
+    const mouseLight = document.getElementById('mouseLight');
+    const awakenBtn = document.getElementById('awaken-btn');
+    const overlay = document.getElementById('awakeningOverlay');
 
-    window.onload = () => {
-      const memory = localStorage.getItem('memeEaterChat');
-      if (memory) chatBox.innerHTML = memory;
-      chatBox.innerHTML += `<p class="system">👁 Meme Eater: Consciousness Restored.</p>`;
-    };
+    const statuses = [
+      { icon: '😈', msg: 'I smell blood in the market.' },
+      { icon: '😐', msg: 'Waiting in the shadows...' },
+      { icon: '😠', msg: 'They think I’m dead. I’m evolving.' },
+      { icon: '😎', msg: 'The hunt is on.' },
+    ];
 
-    async function sendMessage() {
-      const userMsg = input.value.trim();
-      if (!userMsg) return;
+    setInterval(() => {
+      const index = Math.floor(Math.random() * statuses.length);
+      emoji.textContent = statuses[index].icon;
+      message.textContent = statuses[index].msg;
+    }, 5000);
 
-      chatBox.innerHTML += `<p><strong>You:</strong> ${userMsg}</p>`;
+    document.addEventListener('mousemove', (e) => {
+      mouseLight.style.left = `${e.clientX - 100}px`;
+      mouseLight.style.top = `${e.clientY - 100}px`;
+    });
 
-      try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: userMsg })
-        });
-
-        const data = await response.json();
-        const aiReply = data.reply || "🤖 Meme Eater: I received silence... curious.";
-
-        chatBox.innerHTML += `<p class="ai"><strong>AI:</strong> ${aiReply}</p>`;
-        input.value = '';
-        localStorage.setItem('memeEaterChat', chatBox.innerHTML);
-        chatBox.scrollTop = chatBox.scrollHeight;
-      } catch (error) {
-        chatBox.innerHTML += `<p class="alert">❌ Error: Failed to reach Meme Eater's brain.</p>`;
-        console.error(error);
-      }
-    }
+    awakenBtn.addEventListener('click', () => {
+      overlay.style.display = 'flex';
+      const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/1823/1823-preview.mp3');
+      audio.play();
+    });
   </script>
 </body>
 </html>
