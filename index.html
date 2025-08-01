@@ -16,7 +16,7 @@
     }
     .background {
       background: url('wolf-bg-enhanced.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background-size: contain; background-repeat: no-repeat;
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
@@ -151,7 +151,7 @@
           const p = document.createElement('p');
           p.innerText = awakeningMsgs[Math.floor(Math.random() * awakeningMsgs.length)];
           msgContainer.appendChild(p);
-        }, i * 1800);
+        }, i * 30000);
       }
       const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/1823/1823-preview.mp3');
       audio.play();
