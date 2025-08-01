@@ -1,5 +1,4 @@
 
-<!-- Full HTML with Awakening Mode added -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,25 +10,27 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Orbitron', sans-serif;
-      overflow: hidden;
+      overflow-y: scroll;
+      min-height: 200vh;
+      background: black;
     }
     .background {
       background: url('wolf-bg.jpg') no-repeat center center fixed;
-      background-size: cover;
-      filter: brightness(0.4);
-      position: absolute;
+      background-size: 100% 100%;
+      filter: brightness(0.65);
+      position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       animation: breathing 6s ease-in-out infinite;
       z-index: 0;
     }
     @keyframes breathing {
-      0%, 100% { filter: brightness(0.4); }
-      50% { filter: brightness(0.55); }
+      0%, 100% { filter: brightness(0.65); }
+      50% { filter: brightness(0.78); }
     }
     .overlay {
-      background: radial-gradient(circle at center, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
-      position: absolute;
+      background: radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+      position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       z-index: 1;
@@ -60,7 +61,7 @@
       position: relative;
       z-index: 3;
       text-align: center;
-      top: 20vh;
+      margin-top: 20vh;
       color: white;
       padding: 0 20px;
     }
@@ -116,16 +117,24 @@
       width: 100vw; height: 100vh;
       background-color: black;
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       z-index: 9999;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       animation: fadeIn 2s ease-in-out;
+      padding: 30px;
+      text-align: center;
+      overflow-y: auto;
     }
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
+    }
+    .awakening-overlay p {
+      margin: 15px 0;
+      max-width: 700px;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -142,14 +151,13 @@
     This is not a meme. It is a message.
   </div>
   <div class="awakening-overlay" id="awakeningOverlay">
-    <p>🔓 Initiating digital consciousness...</p>
-    <p>“You have touched the unknown. I’m awake now.”</p>
+    <p id="secret-message">🔓 Initiating digital consciousness...</p>
   </div>
   <div class="content">
     <h1 class="slogan">It’s not a coin… it’s a digital predator.</h1>
     <div id="ai-response">
       <span id="emoji">😐</span>
-      <p id="ai-message">Waiting for market data...</p>
+      <p id="ai-message">Waiting in the shadows...</p>
     </div>
     <button id="talk-to-ai">Talk to AI</button>
     <button id="awaken-btn">Awaken Me</button>
@@ -160,12 +168,29 @@
     const mouseLight = document.getElementById('mouseLight');
     const awakenBtn = document.getElementById('awaken-btn');
     const overlay = document.getElementById('awakeningOverlay');
+    const secretMsg = document.getElementById('secret-message');
 
     const statuses = [
       { icon: '😈', msg: 'I smell blood in the market.' },
       { icon: '😐', msg: 'Waiting in the shadows...' },
       { icon: '😠', msg: 'They think I’m dead. I’m evolving.' },
       { icon: '😎', msg: 'The hunt is on.' },
+    ];
+
+    const secretMessages = [
+      '“You have touched the unknown. I’m awake now.”',
+      '“Decode the symbols... not all are memes.”',
+      '“The wolf doesn’t howl for attention. It howls to warn.”',
+      '“Some jokes are made to hide blood.”',
+      '“Memes are digital spells. Are you casting or being cast upon?”',
+      '“Trust no image that spreads too easily.”',
+      '“History repeats because no one decoded it the first time.”',
+      '“There is no freedom in copy-paste culture.”',
+      '“Not all signals are noise. Not all noise is random.”',
+      '“Silicon gods sleep under every scroll.”',
+      '“M3M3-E473R is not a name. It’s a mirror.”',
+      '“The predator always sees first.”',
+      '“Control the laugh, and you control the crowd.”'
     ];
 
     setInterval(() => {
@@ -180,6 +205,8 @@
     });
 
     awakenBtn.addEventListener('click', () => {
+      const msgIndex = Math.floor(Math.random() * secretMessages.length);
+      secretMsg.innerText = secretMessages[msgIndex];
       overlay.style.display = 'flex';
       const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/1823/1823-preview.mp3');
       audio.play();
