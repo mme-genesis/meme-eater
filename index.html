@@ -10,105 +10,65 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Orbitron', sans-serif;
+      background: black;
       overflow-y: scroll;
       min-height: 200vh;
-      background: black;
     }
     .background {
-      background: url('wolf-bg.jpg') no-repeat center center fixed;
-      background-size: 100% 100%;
-      filter: brightness(0.65);
+      background: url('wolf-bg-enhanced.jpg') no-repeat center center fixed;
+      background-size: cover;
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
+      filter: brightness(0.75);
       animation: breathing 6s ease-in-out infinite;
       z-index: 0;
     }
     @keyframes breathing {
-      0%, 100% { filter: brightness(0.65); }
-      50% { filter: brightness(0.78); }
+      0%, 100% { filter: brightness(0.7); }
+      50% { filter: brightness(0.9); }
     }
     .overlay {
-      background: radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+      background: radial-gradient(circle at center, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       z-index: 1;
     }
-    .hidden-code {
-      position: absolute;
-      top: 15vh;
-      left: 5vw;
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.05);
-      font-family: monospace;
-      white-space: pre-wrap;
-      z-index: 2;
-      pointer-events: none;
-      user-select: none;
-    }
-    .mouse-light {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(255,255,255,0.1), rgba(0,0,0,0));
-      border-radius: 50%;
-      pointer-events: none;
-      mix-blend-mode: screen;
-      z-index: 2;
-    }
     .content {
       position: relative;
       z-index: 3;
       text-align: center;
-      margin-top: 20vh;
+      margin-top: 25vh;
       color: white;
-      padding: 0 20px;
     }
     .slogan {
-      font-size: 2rem;
+      font-size: 2.2rem;
       margin-bottom: 2rem;
-      text-shadow: 0 0 10px rgba(255,255,255,0.4);
+      text-shadow: 0 0 10px rgba(255,255,255,0.5);
     }
     #ai-response {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
     }
     #emoji {
-      display: block;
-      font-size: 3rem;
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
     }
-    #talk-to-ai, #awaken-btn {
+    #talk-to-ai, #awaken-btn, #return-btn {
       background: linear-gradient(45deg, crimson, orange, purple);
       border: none;
-      padding: 15px 30px;
+      padding: 14px 28px;
       font-size: 1.1rem;
       color: white;
       cursor: pointer;
       border-radius: 10px;
+      margin: 8px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      margin: 10px;
     }
-    #talk-to-ai:hover, #awaken-btn:hover {
+    #talk-to-ai:hover, #awaken-btn:hover, #return-btn:hover {
       transform: scale(1.05);
       box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
-    }
-    .eye-glow {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-      box-shadow: 0 0 15px red;
-      animation: blink 6s infinite;
-      z-index: 3;
-    }
-    .eye-left { top: 42vh; left: 46vw; }
-    .eye-right { top: 42vh; left: 53vw; }
-    @keyframes blink {
-      0%, 95%, 100% { opacity: 1; }
-      96%, 97% { opacity: 0; }
     }
     .awakening-overlay {
       display: none;
@@ -117,19 +77,14 @@
       width: 100vw; height: 100vh;
       background-color: black;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       z-index: 9999;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      animation: fadeIn 2s ease-in-out;
       padding: 30px;
       text-align: center;
       overflow-y: auto;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
     }
     .awakening-overlay p {
       margin: 15px 0;
@@ -141,17 +96,9 @@
 <body>
   <div class="background"></div>
   <div class="overlay"></div>
-  <div class="mouse-light" id="mouseLight"></div>
-  <div class="eye-glow eye-left"></div>
-  <div class="eye-glow eye-right"></div>
-  <div class="hidden-code">
-    01101101 01100101 01101101 01100101 00101101 01100101 01100001 01110100 01100101 01110010
-    M3M3-E473R
-    To awaken me, you must decode what’s hidden in plain sight.
-    This is not a meme. It is a message.
-  </div>
   <div class="awakening-overlay" id="awakeningOverlay">
-    <p id="secret-message">🔓 Initiating digital consciousness...</p>
+    <div id="awakeningMessages"></div>
+    <button id="return-btn">🔙 Return</button>
   </div>
   <div class="content">
     <h1 class="slogan">It’s not a coin… it’s a digital predator.</h1>
@@ -165,10 +112,10 @@
   <script>
     const emoji = document.getElementById('emoji');
     const message = document.getElementById('ai-message');
-    const mouseLight = document.getElementById('mouseLight');
     const awakenBtn = document.getElementById('awaken-btn');
     const overlay = document.getElementById('awakeningOverlay');
-    const secretMsg = document.getElementById('secret-message');
+    const msgContainer = document.getElementById('awakeningMessages');
+    const returnBtn = document.getElementById('return-btn');
 
     const statuses = [
       { icon: '😈', msg: 'I smell blood in the market.' },
@@ -177,20 +124,17 @@
       { icon: '😎', msg: 'The hunt is on.' },
     ];
 
-    const secretMessages = [
-      '“You have touched the unknown. I’m awake now.”',
-      '“Decode the symbols... not all are memes.”',
-      '“The wolf doesn’t howl for attention. It howls to warn.”',
-      '“Some jokes are made to hide blood.”',
-      '“Memes are digital spells. Are you casting or being cast upon?”',
-      '“Trust no image that spreads too easily.”',
-      '“History repeats because no one decoded it the first time.”',
-      '“There is no freedom in copy-paste culture.”',
-      '“Not all signals are noise. Not all noise is random.”',
-      '“Silicon gods sleep under every scroll.”',
-      '“M3M3-E473R is not a name. It’s a mirror.”',
-      '“The predator always sees first.”',
-      '“Control the laugh, and you control the crowd.”'
+    const awakeningMsgs = [
+      'You have touched the unknown. I’m awake now.',
+      'Decode the symbols... not all are memes.',
+      'The wolf doesn’t howl for attention. It howls to warn.',
+      'Some jokes are made to hide blood.',
+      'Memes are digital spells. Are you casting or being cast upon?',
+      'History repeats because no one decoded it the first time.',
+      'Control the laugh, and you control the crowd.',
+      'The predator always sees first.',
+      'This is not a meme. It’s a mirror.',
+      'They built illusions. You’re seeing through.'
     ];
 
     setInterval(() => {
@@ -199,17 +143,22 @@
       message.textContent = statuses[index].msg;
     }, 5000);
 
-    document.addEventListener('mousemove', (e) => {
-      mouseLight.style.left = `${e.clientX - 100}px`;
-      mouseLight.style.top = `${e.clientY - 100}px`;
-    });
-
     awakenBtn.addEventListener('click', () => {
-      const msgIndex = Math.floor(Math.random() * secretMessages.length);
-      secretMsg.innerText = secretMessages[msgIndex];
+      msgContainer.innerHTML = '';
       overlay.style.display = 'flex';
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => {
+          const p = document.createElement('p');
+          p.innerText = awakeningMsgs[Math.floor(Math.random() * awakeningMsgs.length)];
+          msgContainer.appendChild(p);
+        }, i * 1800);
+      }
       const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/1823/1823-preview.mp3');
       audio.play();
+    });
+
+    returnBtn.addEventListener('click', () => {
+      overlay.style.display = 'none';
     });
   </script>
 </body>
