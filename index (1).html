@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birth from the Code – Wallet Gate</title>
+  <style>
+    @font-face {
+      font-family: 'Digital';
+      src: url('https://fonts.cdnfonts.com/s/17338/Perfect DOS VGA 437 Win.woff') format('woff');
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Digital', monospace;
+      color: #00ff66;
+      background-color: black;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow-x: hidden;
+    }
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    button {
+      font-family: 'Digital', monospace;
+      background-color: transparent;
+      border: 1px solid #00ff66;
+      color: #00ff66;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #00ff66;
+      color: black;
+    }
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="center" id="main-content">
+    <h1>Birth from the Code</h1>
+    <button onclick="connectWallet()">Connect to Wallet</button>
+    <button id="goToPuzzle" onclick="showPuzzleRoom()" style="display:none;">Enter Puzzle Phase</button>
+  </div>
+  <iframe id="puzzleRoom" src="puzzle_room_f1_f2.html" loading="lazy"></iframe>
+
+  <script>
+    function connectWallet() {
+      alert("🔓 Wallet connected (mockup for demo)");
+      document.getElementById("goToPuzzle").style.display = "inline-block";
+    }
+
+    function showPuzzleRoom() {
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("puzzleRoom").style.display = "block";
+    }
+  </script>
+</body>
+</html>

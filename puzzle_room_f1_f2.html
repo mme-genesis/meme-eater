@@ -1,0 +1,168 @@
+<!-- F1+F2 Updated with Enhancements -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meme Eater – The Puzzle Room</title>
+  <style>
+    @keyframes typewriter {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blinkCaret {
+      0%, 100% { border-color: transparent }
+      50% { border-color: #00ffe0; }
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(to bottom right, #000000, #1f1f1f);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    header {
+      margin-top: 40px;
+      font-size: 28px;
+      text-align: center;
+      text-shadow: 0 0 10px #00ffe0;
+    }
+    .intro {
+      margin: 20px auto 10px;
+      max-width: 700px;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.5;
+      opacity: 0.9;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #00ffe0;
+      width: 0;
+      animation: typewriter 4s steps(60, end) 1s forwards, blinkCaret 0.75s step-end infinite;
+    }
+    .guidelines {
+      background: #0d0d0d;
+      border: 1px dashed #00ffe0;
+      padding: 20px;
+      margin: 10px auto 20px;
+      max-width: 800px;
+      font-size: 16px;
+      line-height: 1.6;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 255, 224, 0.1);
+    }
+    .guidelines strong::before {
+      content: '🧩 ';
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      padding: 30px;
+      width: 100%;
+      max-width: 1000px;
+    }
+    .card {
+      background: #121212;
+      border: 2px solid #00ffe0;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 0 20px rgba(0,255,224,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px rgba(0,255,224,0.4);
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: #00ffe0;
+    }
+    .card p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .locked {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .card.locked::after {
+      content: '🔒';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: #ff3366;
+    }
+    footer {
+      margin: 50px auto;
+      font-size: 14px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <header>🧠 The Puzzle Room</header>
+  <div class="intro">
+    You’ve entered the Chamber of Codes. Each path hides a different challenge. Only your memory—and your Meme Eater tokens—can open the gates.
+  </div>
+
+  <div class="guidelines">
+    <strong>Rules & Rewards:</strong><br>
+    • You must hold at least <strong>$1 in MME</strong> to enter.<br>
+    • Holding <strong>$10 or more</strong> unlocks <em>Very Hard</em> level.<br>
+    • Holding <strong>$20 or more</strong> unlocks <em>Da Vinci</em> code.<br>
+    • Each puzzle has a weekly reward pool distributed among solvers:<br>
+    – <strong>Very Easy</strong>: ~2M MME total (~500–1,000 per solver)<br>
+    – <strong>Easy</strong>: ~3M MME total (~1,000–2,000 per solver)<br>
+    – <strong>Hard</strong>: ~4M MME total (~3,000–5,000 per solver)<br>
+    – <strong>Very Hard</strong>: 10,000–20,000 MME (higher stake)<br>
+    – <strong>Da Vinci</strong>: 1M–2M MME (ultra rare – limited winners only)<br>
+    <em>Hold more MME, access deeper mysteries. Every token is a key.</em><br>
+    <em>New puzzles unlock every Sunday. Solve fast before time runs out...</em>
+  </div>
+
+  <div class="card-grid">
+    <!-- F2: Challenge Level Cards -->
+    <div class="card" id="very-easy">
+      <h2>🟢 Very Easy</h2>
+      <p>Reward: ~1,000 MME</p>
+      <p>Status: Unlocked</p>
+    </div>
+    <div class="card" id="easy">
+      <h2>🟡 Easy</h2>
+      <p>Reward: ~2,000 MME</p>
+      <p>Status: Unlocked</p>
+    </div>
+    <div class="card" id="hard">
+      <h2>🔴 Hard</h2>
+      <p>Reward: ~3,000–5,000 MME</p>
+      <p>Status: Unlocked</p>
+    </div>
+    <div class="card locked" id="very-hard">
+      <h2>⚫ Very Hard</h2>
+      <p>Reward: 10,000–20,000 MME</p>
+      <p>Status: Locked – Requires ≥ $10</p>
+    </div>
+    <div class="card locked" id="da-vinci">
+      <h2>🧠 Da Vinci Code</h2>
+      <p>Reward: 🎁 Ultra Rare – only 3 winners per week</p>
+      <p>“Da Vinci Code rewards are manually verified. Enter if you dare...”</p>
+      <p>Status: Locked – Requires ≥ $20</p>
+    </div>
+  </div>
+
+  <footer>
+    Phase F1+F2 complete: Enhanced layout, animation & motivation system in place.
+  </footer>
+</body>
+</html>
